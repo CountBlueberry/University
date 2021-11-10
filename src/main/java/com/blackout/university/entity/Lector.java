@@ -17,13 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "lectors")
 public class Lector {
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "departments_lectors",
-            joinColumns = @JoinColumn(name = "lector_id"),
-            inverseJoinColumns = @JoinColumn(name = "department_id")
-    )
-    private Set<Department> departments = new HashSet<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lector_id")
@@ -32,4 +26,11 @@ public class Lector {
     private BigDecimal salary;
     @Enumerated(EnumType.STRING)
     private Degree degree;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "departments_lectors",
+            joinColumns = @JoinColumn(name = "lector_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id")
+    )
+    private Set<Department> departments = new HashSet<>();
 }

@@ -15,8 +15,6 @@ import java.util.Set;
 @Table(name = "departments")
 public class Department {
 
-    @ManyToMany(mappedBy = "departments")
-    private Set<Lector> lectors = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id")
@@ -25,4 +23,6 @@ public class Department {
     @ManyToOne
     @JoinColumn(name = "head_of_department_id")
     private Lector lector;
+    @ManyToMany(mappedBy = "departments", fetch = FetchType.EAGER)
+    private Set<Lector> lectors = new HashSet<>();
 }
